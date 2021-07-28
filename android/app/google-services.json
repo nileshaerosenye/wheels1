@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1071222497715",
+    "project_id": "wheel-opt",
+    "storage_bucket": "wheel-opt.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1071222497715:android:56b2dd551f09086e08abc6",
+        "android_client_info": {
+          "package_name": "com.example.wheels1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1071222497715-oa6mg86r0b306kn1e683u1ju071so3ji.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArBdEBM3fdxwjEH0zivjsYGKm-g36vRgg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1071222497715-oa6mg86r0b306kn1e683u1ju071so3ji.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
