@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:wheels1/Screens/ForgotPassword.dart';
 import 'package:wheels1/Screens/LoginUser.dart';
 import 'package:wheels1/Screens/RegisterUser.dart';
 import 'package:wheels1/Screens/Welcome.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
         RegisterUser.routeName: (ctx) => RegisterUser(),
         LoginUser.routeName: (ctx) => LoginUser(),
         Welcome.routeName: (ctx) => Welcome(),
+        ForgotPassword.routeName: (ctx) => ForgotPassword(),
       },
 
     );

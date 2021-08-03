@@ -44,7 +44,7 @@ class _WelcomeState extends State<Welcome> {
     print("Build function. User is : " + _user.displayName!);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.brown,
+        backgroundColor: Colors.teal,
         title: Text("Welcome " + _userName),
         actions: <Widget>[
           TextButton.icon(

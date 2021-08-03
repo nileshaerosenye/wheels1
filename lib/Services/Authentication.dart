@@ -33,14 +33,28 @@ class Authentication {
   Future<UserModel?> LoginUser( String _userEmail, String _userPassword ) async {
 
     final _userModel = UserModel();
-
-    await Future.delayed(const Duration(milliseconds: 5000));
-
     print("Trying to login here");
+
     try {
       UserCredential userCredential = await _firebaseAuth.signInWithEmailAndPassword(email: _userEmail, password: _userPassword);
       print("User created: " + userCredential.user.toString());
       _userModel.user = userCredential.user!;
+      return _userModel;
+    }
+    on FirebaseAuthException catch ( e ) {
+      _userModel.error = e.code;
+      return _userModel;
+    }
+
+  }
+
+  Future<UserModel> ForgotPassword ( String _userEmail ) async {
+
+    final _userModel = UserModel();
+    print("Trying to reset user password");
+
+    try {
+      await _firebaseAuth.sendPasswordResetEmail(email: _userEmail);
       return _userModel;
     }
     on FirebaseAuthException catch ( e ) {

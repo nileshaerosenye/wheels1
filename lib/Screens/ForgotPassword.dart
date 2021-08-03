@@ -1,44 +1,35 @@
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:wheels1/Models/UserModel.dart';
-import 'package:wheels1/Screens/BottomBar.dart';
-import 'package:wheels1/Screens/RegisterUser.dart';
 import 'package:wheels1/Services/Authentication.dart';
 
-class LoginUser extends StatefulWidget {
-  const LoginUser({Key? key}) : super(key: key);
+import 'LoginUser.dart';
 
-  static const routeName = "/Login";
+class ForgotPassword extends StatefulWidget {
+  const ForgotPassword({Key? key}) : super(key: key);
+
+  static const routeName = "/ForgotPassword";
 
   @override
-  _LoginUserState createState() => _LoginUserState();
+  _ForgotPasswordState createState() => _ForgotPasswordState();
 }
 
-class _LoginUserState extends State<LoginUser> {
+class _ForgotPasswordState extends State<ForgotPassword> {
 
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  late String _userEmail, _userPassword;
-  String _error="";
+  late String _userEmail;
   final _authentication = Authentication();
   late UserModel _userModel;
-  bool _isLoading = false;
 
-  Future<void> _loginUser() async {
+  Future<void> _forgotPassword() async {
 
     if ( _formKey.currentState!.validate() ) {
       _formKey.currentState!.save();
-      print("Logging-in user: " + _userEmail + " with password: " + _userPassword);
+      print("Resetting password of user: " + _userEmail );
 
-      _userModel = (await _authentication.LoginUser( _userEmail, _userPassword ))!;
-      if ( _userModel.user != null ) {
-        print("Redirect to new page");
-        Navigator.of(context).pushReplacementNamed("/Welcome");
-      }
-      else {
+      _userModel = (await _authentication.ForgotPassword(_userEmail));
+      if ( _userModel.error != null ) {
 
         // display login errors
         showToast(_userModel.error,
@@ -51,7 +42,17 @@ class _LoginUserState extends State<LoginUser> {
           textStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         );
 
-        print("Stay here as login failed");
+      }
+      else {
+        showToast("Email sent to reset password",
+          context: context,
+          animation: StyledToastAnimation.scale,
+          reverseAnimation: StyledToastAnimation.fade,
+          position: StyledToastPosition.center,
+          duration: Duration(seconds: 15),
+          backgroundColor: Colors.red[100],
+          textStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        );
       }
     }
 
@@ -60,7 +61,7 @@ class _LoginUserState extends State<LoginUser> {
   void _handleMenuItems( BuildContext context, item ) {
     switch (item) {
       case 0:
-        Navigator.of(context).pushReplacementNamed(RegisterUser.routeName);
+        Navigator.of(context).pushReplacementNamed(LoginUser.routeName);
         break;
       case 1:
         print("Handle Settings page");
@@ -71,7 +72,6 @@ class _LoginUserState extends State<LoginUser> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
 
       appBar: AppBar(
         backgroundColor: Colors.teal,
@@ -80,15 +80,13 @@ class _LoginUserState extends State<LoginUser> {
         actions: <Widget>[
           PopupMenuButton<int>(
             itemBuilder: (context) => [
-              PopupMenuItem<int>(value: 0, child: Text('Register')),
+              PopupMenuItem<int>(value: 0, child: Text('Login')),
               PopupMenuItem<int>(value: 1, child: Text('Settings')),
             ],
             onSelected: (item) => { _handleMenuItems( context, item ) },
           ),
         ],
       ),
-
-      bottomNavigationBar: BottomBar(),
 
       body: Container(
         color: Colors.teal[100],
@@ -101,10 +99,7 @@ class _LoginUserState extends State<LoginUser> {
             padding: const EdgeInsets.all(10.0),
             child: Form(
               key: _formKey,
-
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
 
                   TextFormField(
@@ -123,40 +118,11 @@ class _LoginUserState extends State<LoginUser> {
                     },
                   ),
 
-                  TextFormField(
-                    decoration: InputDecoration( labelText: "Password"),
-                    obscureText: true,
-                    validator: ( value ) {
-                      if ( value!.length<4 ) {
-                        return "Password length should be 4 or more";
-                      }
-                      else {
-                        return null;
-                      }
-                    },
-                    onSaved: (value) {
-                      this._userPassword = value!;
-                    },
-                  ),
-
                   SizedBox(height: 10.0,),
 
                   ElevatedButton(
-                      onPressed: _loginUser,
-                      child: Text("Sign in"),
-                    style: ElevatedButton.styleFrom(
-                        primary: Colors.blue
-                    ),
-                  ),
-
-                  SizedBox(height: 10.0,),
-
-                  ElevatedButton(
-                      onPressed: () { Navigator.of(context).pushReplacementNamed("/ForgotPassword"); },
-                      child: Text("Reset Password"),
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.blueGrey
-                      ),
+                      onPressed: _forgotPassword,
+                      child: Text("Email password reset link")
                   ),
 
                 ],
@@ -167,5 +133,4 @@ class _LoginUserState extends State<LoginUser> {
       ),
     );
   }
-
 }
