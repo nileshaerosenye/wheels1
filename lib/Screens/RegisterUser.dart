@@ -20,18 +20,13 @@ class _RegisterUserState extends State<RegisterUser> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late String _userName, _userFirstName, _userLastName, _userEmail, _userPassword;
-  String _error="";
   final _authentication = Authentication();
-  bool _isLoading = false;
 
   Future<void> _registerUser() async {
 
     if ( _formKey.currentState!.validate() ) {
       _formKey.currentState!.save();
       print("Registering user: " + _userEmail + " with password: " + _userPassword);
-      setState(() {
-        _isLoading = true;
-      });
 
       // concat first and last names to store in firebase
       _userName = _userFirstName + ", " + _userLastName;
@@ -79,7 +74,7 @@ class _RegisterUserState extends State<RegisterUser> {
       resizeToAvoidBottomInset : false,
 
       appBar: AppBar(
-        backgroundColor: Colors.teal,
+        backgroundColor: new Color.fromRGBO(70,60,0, 1),
         title: Text("X-opt"),
         centerTitle: true,
         actions: <Widget>[
@@ -94,7 +89,6 @@ class _RegisterUserState extends State<RegisterUser> {
       ),
 
       body: Container(
-        color: Colors.teal[100],
         padding: EdgeInsets.all(10.0),
         child: Card(
           shape: RoundedRectangleBorder(
@@ -177,7 +171,9 @@ class _RegisterUserState extends State<RegisterUser> {
 
                   ElevatedButton(
                       onPressed: _registerUser,
-                      child: Text("Register")
+                      child: Text("Register", style: TextStyle(color: Colors.black)),
+                      style: ElevatedButton.styleFrom(
+                          primary: Colors.white38)
                   ),
 
                 ],

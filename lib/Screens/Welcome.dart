@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:wheels1/Screens/LoginUser.dart';
 import 'package:wheels1/Services/Authentication.dart';
 
+import 'BottomBar.dart';
+
 class Welcome extends StatefulWidget {
   const Welcome({Key? key}) : super(key: key);
 
@@ -44,7 +46,7 @@ class _WelcomeState extends State<Welcome> {
     print("Build function. User is : " + _user.displayName!);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.teal,
+        backgroundColor: new Color.fromRGBO(70,60,0, 1),
         title: Text("Welcome " + _userName),
         actions: <Widget>[
           TextButton.icon(
@@ -58,6 +60,7 @@ class _WelcomeState extends State<Welcome> {
           )
         ],
       ),
+      bottomNavigationBar: BottomBar(),
       body: Container(
         padding: EdgeInsets.all(20.0),
         child: Card(

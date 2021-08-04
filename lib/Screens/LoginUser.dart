@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:wheels1/Models/UserModel.dart';
 import 'package:wheels1/Screens/BottomBar.dart';
+import 'package:wheels1/Screens/ForgotPassword.dart';
 import 'package:wheels1/Screens/RegisterUser.dart';
 import 'package:wheels1/Services/Authentication.dart';
 
@@ -72,10 +73,11 @@ class _LoginUserState extends State<LoginUser> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
+      resizeToAvoidBottomInset : false,
 
       appBar: AppBar(
-        backgroundColor: Colors.teal,
-        title: Text("X-opt"),
+        backgroundColor: new Color.fromRGBO(70,60,0, 1),
+        title: Text("X-Opt"),
         centerTitle: true,
         actions: <Widget>[
           PopupMenuButton<int>(
@@ -90,8 +92,9 @@ class _LoginUserState extends State<LoginUser> {
 
       bottomNavigationBar: BottomBar(),
 
+
       body: Container(
-        color: Colors.teal[100],
+        // color: Colors.brown,
         padding: EdgeInsets.all(10.0),
         child: Card(
           shape: RoundedRectangleBorder(
@@ -104,7 +107,7 @@ class _LoginUserState extends State<LoginUser> {
 
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
 
                   TextFormField(
@@ -142,21 +145,29 @@ class _LoginUserState extends State<LoginUser> {
                   SizedBox(height: 10.0,),
 
                   ElevatedButton(
+
                       onPressed: _loginUser,
-                      child: Text("Sign in"),
-                    style: ElevatedButton.styleFrom(
-                        primary: Colors.blue
-                    ),
+                      child: Text("      Login      ", style: TextStyle(color: Colors.black)),
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.white38)
+                  ),
+
+                  Divider(
+                      color: Colors.black,
                   ),
 
                   SizedBox(height: 10.0,),
 
-                  ElevatedButton(
-                      onPressed: () { Navigator.of(context).pushReplacementNamed("/ForgotPassword"); },
-                      child: Text("Reset Password"),
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.blueGrey
-                      ),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPassword()));
+                      },
+                      child: Text("Reset Password", style: TextStyle(decoration: TextDecoration.underline),),
+                  ),
+
+                  TextButton(
+                    onPressed: () { Navigator.of(context).pushReplacementNamed("/Register"); },
+                    child: Text("Sign Up", style: TextStyle(decoration: TextDecoration.underline)),
                   ),
 
                 ],

@@ -5,6 +5,8 @@ import 'package:wheels1/Screens/LoginUser.dart';
 import 'package:wheels1/Screens/RegisterUser.dart';
 import 'package:wheels1/Screens/Welcome.dart';
 
+import 'Stocks/AddStock.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -26,6 +28,7 @@ class MyApp extends StatelessWidget {
         LoginUser.routeName: (ctx) => LoginUser(),
         Welcome.routeName: (ctx) => Welcome(),
         ForgotPassword.routeName: (ctx) => ForgotPassword(),
+        AddStock.routeName: (ctx) => AddStock(),
       },
 
     );

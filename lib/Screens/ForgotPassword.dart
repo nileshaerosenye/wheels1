@@ -74,7 +74,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     return Scaffold(
 
       appBar: AppBar(
-        backgroundColor: Colors.teal,
+        backgroundColor: new Color.fromRGBO(70,60,0, 1),
         title: Text("X-opt"),
         centerTitle: true,
         actions: <Widget>[
@@ -89,7 +89,6 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       ),
 
       body: Container(
-        color: Colors.teal[100],
         padding: EdgeInsets.all(10.0),
         child: Card(
           shape: RoundedRectangleBorder(
@@ -122,7 +121,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
 
                   ElevatedButton(
                       onPressed: _forgotPassword,
-                      child: Text("Email password reset link")
+                      child: Text("Email password reset link", style: TextStyle(color: Colors.black)),
+                      style: ElevatedButton.styleFrom(
+                          primary: Colors.white38)
                   ),
 
                 ],
